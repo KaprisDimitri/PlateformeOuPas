@@ -32,25 +32,25 @@ public class EnemyMovement : MonoBehaviour
     int layerPourDemiTour;
     Vector2 directionDeDepart;
 
-   
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
 
 
-        
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void InitEnemyMove (Vector2 pointFinishLocal, float vitesseDeplacement, Vector2[] directions, float timeAction, int layerPourDemiTour, Vector2 directionDeDepart, Vector2[] pointsDeCheminLocal)
+    public void InitEnemyMove(Vector2 pointFinishLocal, float vitesseDeplacement, Vector2[] directions, float timeAction, int layerPourDemiTour, Vector2 directionDeDepart, Vector2[] pointsDeCheminLocal)
     {
         // generale
         this.vitesseDeplacement = vitesseDeplacement;
@@ -69,8 +69,8 @@ public class EnemyMovement : MonoBehaviour
         actuelPoint = 0;
 
         this.pointsDeCheminLocal = new Vector2[pointsDeCheminLocal.Length + 1];
-        this.pointsDeCheminLocal[0] = transform.position ;
-        for(int i = 0; i< pointsDeCheminLocal.Length;i++)
+        this.pointsDeCheminLocal[0] = transform.position;
+        for (int i = 0; i < pointsDeCheminLocal.Length; i++)
         {
             this.pointsDeCheminLocal[i + 1] = pointsDeCheminLocal[i] + this.pointsDeCheminLocal[i];
         }
@@ -88,7 +88,7 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-    public void ResetEnemyMove (Vector2 pointFinishLocal, float vitesseDeplacement, Vector2[] directions, float timeAction, int layerPourDemiTour, Vector2 directionDeDepart, Vector2[] pointsDeCheminLocal)
+    public void ResetEnemyMove(Vector2 pointFinishLocal, float vitesseDeplacement, Vector2[] directions, float timeAction, int layerPourDemiTour, Vector2 directionDeDepart, Vector2[] pointsDeCheminLocal)
     {
         pointActu = transform.position;
         //Pour lerpSlerp
@@ -123,8 +123,8 @@ public class EnemyMovement : MonoBehaviour
 
     public void ChangeEnemyMove(Vector2 pointFinishLocal, float vitesseDeplacement, Vector2[] directions, float timeAction, int layerPourDemiTour, Vector2 directionDeDepart, Vector2[] pointsDeCheminLocal)
     {
-       
-        
+
+
 
 
         //Pour lerpSlerp
@@ -158,12 +158,12 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-    public bool RetrounerPointInitial ()
+    public bool RetrounerPointInitial()
     {
         t = ChangeTValue(t, true, vitesseDeplacement);
-       
+
         MoveLerp(pointActu, pointInitiale, t);
-        if(t == 1)
+        if (t == 1)
         {
             t = 0;
             return true;
@@ -173,7 +173,7 @@ public class EnemyMovement : MonoBehaviour
 
     // Fonction Pour Le Movement Ler Slerp
 
-    public void EnemyMoveLerp ()
+    public void EnemyMoveLerp()
     {
         t = ChangeTValue(t, augmente, vitesseDeplacement);
         augmente = ChangeWay(augmente, t);
@@ -189,7 +189,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void EnemyMoveLerpList()
     {
-        t = ChangeTValue(t, augmente, ChangeVitesseDeplacement(Vector2.Distance(pointsDeCheminLocal[0],pointsDeCheminLocal[1]), pointsDeCheminLocal[actuelPoint], pointsDeCheminLocal[prochainPoint], vitesseDeplacement)) ;
+        t = ChangeTValue(t, augmente, ChangeVitesseDeplacement(Vector2.Distance(pointsDeCheminLocal[0], pointsDeCheminLocal[1]), pointsDeCheminLocal[actuelPoint], pointsDeCheminLocal[prochainPoint], vitesseDeplacement));
         prochainPoint = ChangeProchainPoint(t, prochainPoint);
         MoveLerp(pointsDeCheminLocal[actuelPoint], pointsDeCheminLocal[prochainPoint], t);
     }
@@ -201,13 +201,13 @@ public class EnemyMovement : MonoBehaviour
         MoveSlerp(pointsDeCheminLocal[actuelPoint], pointsDeCheminLocal[prochainPoint], t);
     }
 
-    bool ChangeWay (bool augmente, float t)
+    bool ChangeWay(bool augmente, float t)
     {
-        if(t == 0 && !augmente)
+        if (t == 0 && !augmente)
         {
             return true;
         }
-        else if(t==1 && augmente)
+        else if (t == 1 && augmente)
         {
             return false;
         }
@@ -215,9 +215,9 @@ public class EnemyMovement : MonoBehaviour
         return augmente;
     }
 
-    float ChangeTValue (float t, bool augmente, float vitesseEnSeconde)
+    float ChangeTValue(float t, bool augmente, float vitesseEnSeconde)
     {
-        if(augmente)
+        if (augmente)
         {
             t += Time.deltaTime / vitesseEnSeconde;
         }
@@ -226,11 +226,11 @@ public class EnemyMovement : MonoBehaviour
             t -= Time.deltaTime / vitesseEnSeconde;
         }
 
-        if(t<0)
+        if (t < 0)
         {
             return 0;
         }
-        else if(t>1)
+        else if (t > 1)
         {
             return 1;
         }
@@ -240,27 +240,27 @@ public class EnemyMovement : MonoBehaviour
 
     int ChangeProchainPoint(float t, int prochainPoint)
     {
-        if(t>=1)
+        if (t >= 1)
         {
             actuelPoint = prochainPoint;
             prochainPoint++;
             this.t = 0;
         }
-        if(prochainPoint >= pointsDeCheminLocal.Length)
+        if (prochainPoint >= pointsDeCheminLocal.Length)
         {
             prochainPoint = 0;
         }
         return prochainPoint;
     }
 
-    float ChangeVitesseDeplacement (float distanceRef, Vector2 pointDeChemainActuel, Vector2 pointDeChemainProchain, float vitesseDeplacement)
+    float ChangeVitesseDeplacement(float distanceRef, Vector2 pointDeChemainActuel, Vector2 pointDeChemainProchain, float vitesseDeplacement)
     {
         float distComparer = Vector2.Distance(pointDeChemainActuel, pointDeChemainProchain);
-        return vitesseDeplacement / (distanceRef/ distComparer);
+        return vitesseDeplacement / (distanceRef / distComparer);
     }
-    
 
-    void MoveLerp (Vector2 pointDepart, Vector2 pointFinish, float t)
+
+    void MoveLerp(Vector2 pointDepart, Vector2 pointFinish, float t)
     {
         gameObject.transform.position = Vector2.Lerp(pointDepart, pointFinish, t);
     }
@@ -268,21 +268,21 @@ public class EnemyMovement : MonoBehaviour
     void MoveSlerp(Vector2 pointDepart, Vector2 pointFinish, float t)
     {
         gameObject.transform.position = Vector3.Slerp(pointDepart, pointFinish, t);
-        
+
     }
 
 
 
-    Vector2 DirectionMoveEnemySlerpLerp (Vector2 pointDepart, Vector2 pointFinish)
+    Vector2 DirectionMoveEnemySlerpLerp(Vector2 pointDepart, Vector2 pointFinish)
     {
         return pointFinish - pointDepart;
     }
 
-    
 
-// Fonction Pour Le Movement Aleatoire
 
-    public void EnemyMoveAleatoire ()
+    // Fonction Pour Le Movement Aleatoire
+
+    public void EnemyMoveAleatoire()
     {
         collisionActive = true;
         if (finishMove)
@@ -294,22 +294,22 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            
+
             MoveTranslate(direction, vitesseDeplacement);
         }
-        
+
 
     }
 
-    void MoveTranslate (Vector2 direction, float vitesseDeplacement)
+    void MoveTranslate(Vector2 direction, float vitesseDeplacement)
     {
         gameObject.transform.Translate(direction * vitesseDeplacement * Time.deltaTime);
     }
 
-    Vector2 ChoixDirectionAleatoire (Vector2[] direction)
+    Vector2 ChoixDirectionAleatoire(Vector2[] direction)
     {
-        int rand = Random.Range(0, direction.Length+1);
-        if(rand == direction.Length)
+        int rand = Random.Range(0, direction.Length + 1);
+        if (rand == direction.Length)
         {
             return Vector2.zero;
         }
@@ -324,7 +324,7 @@ public class EnemyMovement : MonoBehaviour
 
     // Fonction Pour Le Movement Collision Inverse
 
-    public void EnemyMoveCollision ()
+    public void EnemyMoveCollision()
     {
         collisionActive = true;
         MoveTranslate(directionDeDepart, vitesseDeplacement);
@@ -334,8 +334,8 @@ public class EnemyMovement : MonoBehaviour
     {
         if (collisionActive)
         {
-            
-           
+
+
             if (collision.gameObject.layer == layerPourDemiTour || collision.gameObject.layer == gameObject.layer || collision.gameObject.layer == 7)
             {
                 directionDeDepart *= -1;
@@ -343,10 +343,4 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
-
-
-
-
-
-
 }

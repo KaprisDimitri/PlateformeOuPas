@@ -48,26 +48,24 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    
+
 
     void CheckIfPlayerFinish(Vector2 center)
     {
-        Debug.Log(center);
-        Collider[] col = Physics.OverlapSphere(center , 1);
+        Collider[] col = Physics.OverlapSphere(center, 1);
         if (col.Length > 0)
         {
-           
+
             for (int i = 0; i < col.Length; i++)
             {
-                Debug.Log(col[i].gameObject.name);
                 if (col[i].gameObject.layer == 7)
                 {
-                    
+
                     SceneManager.LoadScene("Menu", LoadSceneMode.Single);
                 }
             }
-               
-           
+
+
         }
     }
 
@@ -81,9 +79,8 @@ public class LevelManager : MonoBehaviour
 
     public void PutPlayerAtLastCheckPoint(GameObject other)
     {
-        Debug.Log(playerSpawn.transform.position);
         int index = FintTheGoodCheckPoint();
-        if(index == -1)
+        if (index == -1)
         {
             other.transform.position = playerSpawn.transform.position;
         }
@@ -93,25 +90,23 @@ public class LevelManager : MonoBehaviour
         }
         player.GetComponent<Health>().AddRemoveHearth(1000, true);
         other.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        Debug.Log(other.transform.position);
-        Debug.Log(other.name);
 
     }
 
     int FintTheGoodCheckPoint()
     {
         int t = -1;
-        for(int i = 0; i<checkPoints.Length;i++)
+        for (int i = 0; i < checkPoints.Length; i++)
         {
-            if(!(checkPoints[i].GetComponent<CheckPointController>().check))
+            if (!(checkPoints[i].GetComponent<CheckPointController>().check))
             {
                 break;
             }
-            else if(i == checkPoints.Length-1 && checkPoints[i].GetComponent<CheckPointController>().check)
+            else if (i == checkPoints.Length - 1 && checkPoints[i].GetComponent<CheckPointController>().check)
             {
                 return i;
             }
-            else if(checkPoints[i].GetComponent<CheckPointController>().check && !(checkPoints[i+1].GetComponent<CheckPointController>().check))
+            else if (checkPoints[i].GetComponent<CheckPointController>().check && !(checkPoints[i + 1].GetComponent<CheckPointController>().check))
             {
                 return i;
             }
