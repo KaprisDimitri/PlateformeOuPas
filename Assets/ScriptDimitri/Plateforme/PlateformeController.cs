@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlateformeController : MonoBehaviour
+public class PlateformeController : MonoBehaviour,IActivable
 {
     [Header("Script A affilier")]
     [SerializeField] EnemyMovement enemyMovement;
@@ -12,6 +12,7 @@ public class PlateformeController : MonoBehaviour
 
     [Space]
     [Header("Generale")]
+    [SerializeField] bool active;
     [SerializeField] float vitesseDeDeplacement;
     bool inMove;
     [SerializeField] ChoixMouvement choixMouvement;
@@ -99,26 +100,28 @@ public class PlateformeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
-        if (actionSurPlateforme)
+        if (active)
         {
-            if(playerSurPlateforme)
+
+            if (actionSurPlateforme)
             {
-                ActionSurPlateformeMove();
-                if(!destroyed)
+                if (playerSurPlateforme)
                 {
-                   ActionSurPlatefome();
+                    ActionSurPlateformeMove();
+                    if (!destroyed)
+                    {
+                        ActionSurPlatefome();
+                    }
+                }
+                else
+                {
+                    MovePlateforme();
                 }
             }
             else
             {
                 MovePlateforme();
             }
-        }
-        else
-        {
-            MovePlateforme();
         }
         
         
@@ -261,28 +264,31 @@ public class PlateformeController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(enfant)
+        if (active)
         {
-            if(other.gameObject.layer == layerPourPlayer)
+            if (enfant)
             {
-                player = other.gameObject;
-                other.gameObject.transform.parent = gameObject.transform;
+                if (other.gameObject.layer == layerPourPlayer)
+                {
+                    player = other.gameObject;
+                    other.gameObject.transform.parent = gameObject.transform;
+                }
             }
-        }
 
-        if(actionSurPlateforme)
-        {
+            if (actionSurPlateforme)
+            {
+                if (other.gameObject.layer == layerPourPlayer)
+                {
+                    playerSurPlateforme = true;
+                    inMove = false;
+                    enemyMovement.ChangeEnemyMove(actionPointFinishLocal, vitesseDeDeplacement, actionDirections, actionTempsAction, actionLayerPourDemiTour, actionDirectionDeDepart, actionPointsDeCheminLocal);
+                }
+            }
+
             if (other.gameObject.layer == layerPourPlayer)
             {
-                playerSurPlateforme = true;
-                inMove = false;
-                enemyMovement.ChangeEnemyMove(actionPointFinishLocal, vitesseDeDeplacement, actionDirections, actionTempsAction, actionLayerPourDemiTour, actionDirectionDeDepart, actionPointsDeCheminLocal);
+                //ActionSurPlatefome();
             }
-        }
-
-        if (other.gameObject.layer == layerPourPlayer)
-        {
-           //ActionSurPlatefome();
         }
 
 
@@ -290,21 +296,24 @@ public class PlateformeController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (enfant)
+        if (active)
         {
-            if (other.gameObject.layer == layerPourPlayer)
+            if (enfant)
             {
-                
-                other.gameObject.transform.parent = null;
-            }
-        }
+                if (other.gameObject.layer == layerPourPlayer)
+                {
 
-        if (actionSurPlateforme)
-        {
-            if (other.gameObject.layer == layerPourPlayer)
+                    other.gameObject.transform.parent = null;
+                }
+            }
+
+            if (actionSurPlateforme)
             {
-                playerSurPlateforme = false;
-                enemyMovement.ResetEnemyMove(pointFinishLocal, vitesseDeDeplacement, directions, tempsAction, layerPourDemiTour, directionDeDepart, pointsDeCheminLocal);
+                if (other.gameObject.layer == layerPourPlayer)
+                {
+                    playerSurPlateforme = false;
+                    enemyMovement.ResetEnemyMove(pointFinishLocal, vitesseDeDeplacement, directions, tempsAction, layerPourDemiTour, directionDeDepart, pointsDeCheminLocal);
+                }
             }
         }
     }
@@ -339,5 +348,10 @@ public class PlateformeController : MonoBehaviour
         aucun,
         destruction,
         active,
+    }
+
+    public void ChangeActiveState()
+    {
+        this.active = !active;
     }
 }
