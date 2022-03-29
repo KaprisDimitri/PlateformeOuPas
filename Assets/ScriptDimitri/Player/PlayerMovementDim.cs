@@ -29,6 +29,9 @@ public class PlayerMovementDim : MonoBehaviour
 
     float timeWallJump;
     float timeToReachWallJump;
+
+     float forceJumpWallY;
+     float forceJumpWallX;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +39,7 @@ public class PlayerMovementDim : MonoBehaviour
         veloX = 0;
        
         timeGround = 0.2f;
-        timeToReachWallJump = 0.35f;
+       
     }
 
     // Update is called once per frame
@@ -69,13 +72,16 @@ public class PlayerMovementDim : MonoBehaviour
         
     }
 
-    public void InitPlayerMovement (Transform firstPositionForRayCast, Transform SecondPositionForRayCast, LayerMask layerGround, Transform rightSide, Transform leftSide)
+    public void InitPlayerMovement (Transform firstPositionForRayCast, Transform SecondPositionForRayCast, LayerMask layerGround, Transform rightSide, Transform leftSide,float timeToReachWallJump,float forceJumpWallY, float forceJumpWallX)
     {
         this.firstPositionForRayCast = firstPositionForRayCast;
         this.SecondPositionForRayCast = SecondPositionForRayCast;
         this.layerGround = layerGround;
         this.rightSide = rightSide;
         this.leftSide = leftSide;
+        this.timeToReachWallJump = timeToReachWallJump;
+        this.forceJumpWallX = forceJumpWallX;
+        this.forceJumpWallY = forceJumpWallY;
     }
 
     public void MovePlayer(Rigidbody rd, Vector2 direction, float force, float vitesseDeplacement, float forceJump, float vitessePerteVitesse)
@@ -86,7 +92,7 @@ public class PlayerMovementDim : MonoBehaviour
             {
                 jump = true;
                 canJump = false;
-                float forceJumpBase = 2;
+                float forceJumpBase = 5;
                 if (veloX < 0)
                 {
                     forceJump *= ((veloX / force * -1));
@@ -276,7 +282,7 @@ public class PlayerMovementDim : MonoBehaviour
     void WallJump (Rigidbody rd,float force, float forceJump)
     {
         
-            rd.velocity = new Vector3(force*(wallDirection*-1), forceJump*2);
+            rd.velocity = new Vector3((forceJumpWallX) *(wallDirection*-1), forceJumpWallY);
         //Debug.Log(rd.velocity);
         wallJump = true;
 

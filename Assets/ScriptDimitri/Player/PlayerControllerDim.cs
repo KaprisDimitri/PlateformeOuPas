@@ -23,12 +23,16 @@ public class PlayerControllerDim : MonoBehaviour
     [SerializeField] Transform leftSide;
     [SerializeField] LayerMask layerGround;
 
+    [SerializeField] float timeToReachWallJump;
+    [SerializeField] float forceJumpWallY;
+    [SerializeField] float forceJumpWallX;
+
     public Vector2 directionPlayer;
     // Start is called before the first frame update
     void Start()
     {
         playerInput.InitPlayerInputDim(jump, left, right);
-        playerMovement.InitPlayerMovement(firstPositionForRayCast, SecondPositionForRayCast, layerGround, rightSide,leftSide);
+        playerMovement.InitPlayerMovement(firstPositionForRayCast, SecondPositionForRayCast, layerGround, rightSide,leftSide, timeToReachWallJump, forceJumpWallY, forceJumpWallX);
     }
 
     // Update is called once per frame
