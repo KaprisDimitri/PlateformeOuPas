@@ -262,12 +262,14 @@ public class EnemyMovement : MonoBehaviour
 
     void MoveLerp (Vector2 pointDepart, Vector2 pointFinish, float t)
     {
-        gameObject.transform.position = Vector2.Lerp(pointDepart, pointFinish, t);
+        Vector3 value = Vector2.Lerp(pointDepart, pointFinish, t);
+        gameObject.transform.position = new Vector3(value.x, value.y, gameObject.transform.position.z);
     }
 
     void MoveSlerp(Vector2 pointDepart, Vector2 pointFinish, float t)
     {
-        gameObject.transform.position = Vector3.Slerp(pointDepart, pointFinish, t);
+        Vector3 value = Vector3.Slerp(pointDepart, pointFinish, t);
+        gameObject.transform.position = new Vector3(value.x, value.z, transform.position.z);
         
     }
 

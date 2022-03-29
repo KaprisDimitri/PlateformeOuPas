@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivateurControllze : MonoBehaviour
+public class ActivateurControllze : MonoBehaviour , IDiferenteWorld
 {
     [SerializeField] ChoixActivation choixActivation;
     [SerializeField] GameObject activable;
@@ -92,5 +92,15 @@ public class ActivateurControllze : MonoBehaviour
     {
         yield return new WaitForSeconds(tempsAvantValidation);
         SetActivable();
+    }
+
+    public void SetInvisible()
+    {
+        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, -15);
+    }
+
+    public void SetVisible()
+    {
+        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 }

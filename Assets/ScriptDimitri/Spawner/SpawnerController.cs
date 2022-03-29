@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnerController : MonoBehaviour, IActivable
+public class SpawnerController : MonoBehaviour, IActivable , IDiferenteWorld
 {
     [SerializeField] bool active;
 
     [SerializeField] SpawnChoix spawnChoix;
 
     [SerializeField] GameObject objectToSpawn;
+    [SerializeField] GameObject parentOfObject;
     [SerializeField] int nomberOfSpawn;
     [SerializeField] float timeBetweenSpawn;
 
@@ -44,7 +45,7 @@ public class SpawnerController : MonoBehaviour, IActivable
 
     void SpawnObject ()
     {
-        Instantiate(objectToSpawn, gameObject.transform.position, Quaternion.identity);
+        Instantiate(objectToSpawn, gameObject.transform.position, Quaternion.identity, parentOfObject.transform);
     }
 
     enum SpawnChoix
@@ -89,5 +90,15 @@ public class SpawnerController : MonoBehaviour, IActivable
             ChoixSpawn();
         }
         
+    }
+
+    public void SetInvisible()
+    {
+        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, -15);
+    }
+
+    public void SetVisible()
+    {
+        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 }

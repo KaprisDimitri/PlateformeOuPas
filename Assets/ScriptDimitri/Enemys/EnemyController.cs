@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour , IDiferenteWorld
 {
     [Header("Script A affilier")]
     [SerializeField] EnemyMovement enemyMovement;
@@ -180,4 +180,24 @@ public class EnemyController : MonoBehaviour
         aucun,
         dedoublement,
         }
+
+    public void SetInvisible()
+    {
+        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, -15);
+
+        if (gameObject.transform.childCount != 0)
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+
+    public void SetVisible()
+    {
+        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+
+        if (gameObject.transform.childCount != 0)
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
 }

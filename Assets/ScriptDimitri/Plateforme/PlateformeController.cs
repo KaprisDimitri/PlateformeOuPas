@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlateformeController : MonoBehaviour,IActivable
+public class PlateformeController : MonoBehaviour,IActivable,IDiferenteWorld
 {
     [Header("Script A affilier")]
     [SerializeField] EnemyMovement enemyMovement;
@@ -353,5 +353,30 @@ public class PlateformeController : MonoBehaviour,IActivable
     public void ChangeActiveState()
     {
         this.active = !active;
+    }
+
+    public void SetInvisible()
+    {
+        if(enfant)
+        {
+            if(player !=null)
+            {
+                player.transform.parent = null;
+            }
+        }
+        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, -15);
+        if (gameObject.transform.childCount != 0)
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+
+    public void SetVisible()
+    {
+        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        if (gameObject.transform.childCount != 0)
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
     }
 }

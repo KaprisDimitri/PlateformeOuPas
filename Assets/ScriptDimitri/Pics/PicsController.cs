@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PicsController : MonoBehaviour
+public class PicsController : MonoBehaviour , IDiferenteWorld
 {
     [SerializeField] Vector2 pointOuJump;
     [SerializeField] float diametreOverLaJumpp;
@@ -86,6 +86,16 @@ public class PicsController : MonoBehaviour
             rb.AddForce(direction * forceDeSautCoter);
             Debug.Log((new Vector2(direction.x * forceDeSautCoter * 10, forceDeSautCoter)));
         }
+    }
+
+    public void SetInvisible()
+    {
+        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, -15);
+    }
+
+    public void SetVisible()
+    {
+        gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
 
