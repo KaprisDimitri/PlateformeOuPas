@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -23,7 +22,8 @@ public class PlayerMovement : MonoBehaviour
         canWallJump = true;
     }
     void Update()
-    {if (canMove)
+    {
+        if (canMove)
         {
             if (!isFacingRight && horizontal > 0f)
             {
@@ -54,14 +54,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canMove)
         {
-            
 
-           
 
-            if(Input.GetKey(KeyCode.Q))
+
+
+            if (Input.GetKey(KeyCode.Q))
             {
                 horizontal = -1;
-               
+
 
                 if (IsOnWall(false) && !IsGrounded() && canWallJump && Input.GetKeyDown(KeyCode.Space))
                 {
@@ -77,14 +77,14 @@ public class PlayerMovement : MonoBehaviour
             else if (Input.GetKey(KeyCode.D))
             {
                 horizontal = 1;
-                
-                if (IsOnWall(true) && !IsGrounded() && canWallJump && Input.GetKeyDown(KeyCode.Space)) 
+
+                if (IsOnWall(true) && !IsGrounded() && canWallJump && Input.GetKeyDown(KeyCode.Space))
                 {
-                     JumpWall(true);
+                    JumpWall(true);
 
                 }
 
-                if(canWallJump || !IsOnWall(true))
+                if (canWallJump || !IsOnWall(true))
                 {
                     rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
                 }
@@ -94,13 +94,13 @@ public class PlayerMovement : MonoBehaviour
                 horizontal = 0;
                 rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
             }
-            
-            if(Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.D))
+
+            if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.D))
             {
                 horizontal = 0;
             }
         }
-        
+
     }
 
     /*
@@ -120,11 +120,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }*/
 
-    public  bool IsGrounded()
+    public bool IsGrounded()
     {
-        
+
         Collider[] col = Physics.OverlapSphere(groundCheck.position, 0.1f, groundLayer);
-        
+
         if (col.Length > 0)
         {
             if (!canWallJump)
@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
                 canWallJump = true;
             }
             return true;
-            
+
         }
         else
         {
@@ -145,16 +145,16 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit[] hits;
         if (droite)
         {
-            hits = Physics.RaycastAll(gameObject.transform.position, Vector3.right,1+0.1f);
+            hits = Physics.RaycastAll(gameObject.transform.position, Vector3.right, 1 + 0.1f);
         }
         else
         {
-            hits= Physics.RaycastAll(gameObject.transform.position, Vector3.left,1+0.1f);
+            hits = Physics.RaycastAll(gameObject.transform.position, Vector3.left, 1 + 0.1f);
         }
 
-        for(int i =0; i<hits.Length;i++)
+        for (int i = 0; i < hits.Length; i++)
         {
-            if(hits[i].transform.gameObject.layer == 6)
+            if (hits[i].transform.gameObject.layer == 6)
             {
                 return true;
             }
@@ -164,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    void JumpWall (bool droite)
+    void JumpWall(bool droite)
     {
         if (droite)
         {
