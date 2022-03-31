@@ -1705,7 +1705,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d23cde9cfd54ce4ea1adda843782032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grounded: 0
   wallDirection: 0
+  canMove: 0
 --- !u!114 &1818269318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1735,7 +1737,7 @@ MonoBehaviour:
   rigidBody: {fileID: 1818269312}
   vitesse: 20
   vitesseMax: 7
-  vitesseJump: 5
+  vitesseJump: 0.2
   perteVitesse: 20
   jump: 32
   left: 113

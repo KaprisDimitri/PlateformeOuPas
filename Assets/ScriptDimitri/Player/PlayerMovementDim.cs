@@ -97,7 +97,7 @@ public class PlayerMovementDim : MonoBehaviour
                 {
                     jump = true;
                     canJump = false;
-                    float forceJumpBase = 5;
+                    float forceJumpBase = 10f;
                     if (veloX < 0)
                     {
                         forceJump *= ((veloX / force * -1));

@@ -9010,7 +9010,7 @@ MonoBehaviour:
   rigidBody: {fileID: 894608402}
   vitesse: 20
   vitesseMax: 8
-  vitesseJump: 5
+  vitesseJump: 0.2
   perteVitesse: 20
   jump: 32
   left: 113
