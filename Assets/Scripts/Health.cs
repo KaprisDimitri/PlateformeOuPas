@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] PlayerMovementDim playerMovement;
     public static int health = 9;
     public int numberOfHearths;
 

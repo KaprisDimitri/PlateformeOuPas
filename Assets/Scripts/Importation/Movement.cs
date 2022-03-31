@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private Collision coll;
+    private col coll;
     [HideInInspector]
     public Rigidbody rb;
 
@@ -42,7 +42,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coll = GetComponent<Collision>();
+        coll = GetComponent<col>();
         rb = GetComponent<Rigidbody>();
     }
 

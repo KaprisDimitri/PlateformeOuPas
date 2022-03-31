@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject finish;
 
     [SerializeField] GameObject player;
+    [SerializeField] GameObject Cam;
     [SerializeField] GameObject[] checkPoints;
     GameObject playerInGame;
 
@@ -24,18 +25,24 @@ public class LevelManager : MonoBehaviour
     float couleurInt;
     bool swipe;
     bool cantswipe;
+
+    private void Awake()
+    {
+        InitLevel();
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
         player.GetComponent<Health>().levelManager = GetComponent<LevelManager>();
         couleurInt = 0;
-        InitLevel();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.X) && !swipe)
+        if(Input.GetMouseButtonDown(0) && !swipe)
         {
             swipe = true;
             
@@ -51,9 +58,10 @@ public class LevelManager : MonoBehaviour
 
     void InitLevel()
     {
-        startingWorld = 1;
-        worldB.SetAllInvisible();
-        worldA.SetAllVisible();
+        startingWorld = 2;
+        ChangeWorld();
+        //worldB.SetAllInvisible();
+        //worldA.SetAllVisible();
        // playerInGame = SpawnPlayer(player);
     }
 
@@ -101,6 +109,7 @@ public class LevelManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+       
         if (other.gameObject.layer == 7)
         {
             PutPlayerAtLastCheckPoint(other.gameObject);
@@ -121,6 +130,7 @@ public class LevelManager : MonoBehaviour
         }
         player.GetComponent<Health>().AddRemoveHearth(1000, true);
         other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        Cam.transform.position = player.transform.position;
         Debug.Log(other.transform.position);
         Debug.Log(other.name);
 
@@ -156,7 +166,7 @@ public class LevelManager : MonoBehaviour
             for (int i = 0; i < worldB.decor.transform.childCount;i++)
             {
                 active = worldB.decor.transform.GetChild(i).GetComponent<GroundController>().CheckIfCanSwipe();
-                
+                Debug.Log(active + "active  worldB" + worldB.decor.transform.GetChild(i).name);
                 if(!active)
                 {
                     break;
@@ -169,6 +179,7 @@ public class LevelManager : MonoBehaviour
             for (int i = 0; i < worldA.decor.transform.childCount; i++)
             {
                 active = worldA.decor.transform.GetChild(i).GetComponent<GroundController>().CheckIfCanSwipe();
+                Debug.Log(active + "active  worldB");
                 if (!active)
                 {
                     break;

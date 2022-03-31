@@ -25,7 +25,7 @@ public class CheckPointController : MonoBehaviour
         {
             if(other.gameObject.layer == 7)
             {
-                Debug.Log("yo");
+               
                 check = true;
                 mesh.material = materialCheck;
             }

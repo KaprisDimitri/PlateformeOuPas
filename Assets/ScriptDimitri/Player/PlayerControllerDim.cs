@@ -38,7 +38,13 @@ public class PlayerControllerDim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         directionPlayer = playerInput.DirectionPlayer();
         playerMovement.MovePlayer(rigidBody, directionPlayer, vitesseMax, vitesse, vitesseJump, perteVitesse);
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 }

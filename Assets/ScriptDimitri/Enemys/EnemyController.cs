@@ -59,7 +59,7 @@ public class EnemyController : MonoBehaviour , IDiferenteWorld
     bool canMove;
 
     [Header("ChoixAction")]
-    [SerializeField] ChoixAction choixAction;
+    [SerializeField] public ChoixAction choixActiossn;
 
 
     // Start is called before the first frame update
@@ -146,6 +146,8 @@ public class EnemyController : MonoBehaviour , IDiferenteWorld
         }
     }
 
+    
+
     private void OnCollisionEnter(Collision collision)
     {
         if (enemyAction.canDedouble && collision.gameObject.layer == 7)
@@ -161,7 +163,7 @@ public class EnemyController : MonoBehaviour , IDiferenteWorld
 
     void ActionEnemy ()
     {
-        switch(choixAction)
+        switch(choixActiossn)
         {
             case ChoixAction.dedoublement:
                 enemyAction.dedoublement = true;
@@ -175,7 +177,7 @@ public class EnemyController : MonoBehaviour , IDiferenteWorld
         canMove = true;
     }
 
-    enum ChoixAction
+   public enum ChoixAction
         {
         aucun,
         dedoublement,

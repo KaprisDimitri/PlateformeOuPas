@@ -23,8 +23,11 @@ public class EnemyAction : MonoBehaviour
     void Dedoublement ()
     {
         Debug.Log("yo"+gameObject.name);
-        Instantiate(gameObject, gameObject.transform.position, Quaternion.identity);
-        
+        GameObject en =Instantiate(gameObject, gameObject.transform.position, Quaternion.identity,gameObject.transform.parent);
+        en.GetComponent<EnemyController>().choixActiossn = EnemyController.ChoixAction.aucun;
+        gameObject.GetComponent<EnemyController>().choixActiossn = EnemyController.ChoixAction.aucun;
+        en.GetComponent<EnemyAction>().dedoublement = false;
+        dedoublement = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,12 +35,13 @@ public class EnemyAction : MonoBehaviour
        
         if (dedoublement)
         {
-            
+            Debug.Log("yo" + gameObject.name);
             if (canDedouble && other.gameObject.layer == 7)
             {
-                
-                if (!(other.gameObject.GetComponent<PlayerMovement>().IsGrounded()))
+                Debug.Log("yo2" + gameObject.name);
+                if (!(other.gameObject.GetComponent<PlayerMovementDim>().grounded))
                 {
+                    Debug.Log("yo3" + gameObject.name);
                     canDedouble = false;
                     StopAllCoroutines();
                     other.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(other.gameObject.GetComponent<Rigidbody>().velocity.x, 10, 0);//.AddForce((other.gameObject.transform.position - transform.position) * 300);

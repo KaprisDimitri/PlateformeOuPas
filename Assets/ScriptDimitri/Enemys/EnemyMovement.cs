@@ -340,7 +340,7 @@ public class EnemyMovement : MonoBehaviour
            
             if (collision.gameObject.layer == layerPourDemiTour || collision.gameObject.layer == gameObject.layer || collision.gameObject.layer == 7)
             {
-                directionDeDepart *= -1;
+                directionDeDepart = new Vector2(directionDeDepart.x*-1 ,directionDeDepart.y);
                 direction *= -1;
             }
         }

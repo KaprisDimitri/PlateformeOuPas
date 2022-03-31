@@ -100,6 +100,13 @@ public class PlateformeController : MonoBehaviour,IActivable,IDiferenteWorld
     // Update is called once per frame
     void Update()
     {
+       
+        
+        
+    }
+
+    private void FixedUpdate()
+    {
         if (active)
         {
 
@@ -123,8 +130,6 @@ public class PlateformeController : MonoBehaviour,IActivable,IDiferenteWorld
                 MovePlateforme();
             }
         }
-        
-        
     }
 
     void InitPlateformeController()

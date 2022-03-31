@@ -54,10 +54,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canMove)
         {
-
-
-
-
             if (Input.GetKey(KeyCode.Q))
             {
                 horizontal = -1;

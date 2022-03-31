@@ -14,7 +14,7 @@ public class PlayerMovementDim : MonoBehaviour
 
     float veloX;
 
-    bool grounded;
+    public bool grounded;
    
 
     float timeGround;
@@ -32,9 +32,12 @@ public class PlayerMovementDim : MonoBehaviour
 
      float forceJumpWallY;
      float forceJumpWallX;
+
+    public bool canMove;
     // Start is called before the first frame update
     void Start()
     {
+        canMove = true;
         wasGrounded = false;
         veloX = 0;
        
@@ -86,82 +89,85 @@ public class PlayerMovementDim : MonoBehaviour
 
     public void MovePlayer(Rigidbody rd, Vector2 direction, float force, float vitesseDeplacement, float forceJump, float vitessePerteVitesse)
     {
-        if (direction.y == 1)
+        if (canMove)
         {
-            if ((grounded || canJump)&&! wallJump )
+            if (direction.y == 1)
             {
-                jump = true;
-                canJump = false;
-                float forceJumpBase = 5;
-                if (veloX < 0)
+                if ((grounded || canJump) && !wallJump)
                 {
-                    forceJump *= ((veloX / force * -1));
+                    jump = true;
+                    canJump = false;
+                    float forceJumpBase = 5;
+                    if (veloX < 0)
+                    {
+                        forceJump *= ((veloX / force * -1));
+                    }
+                    else
+                    {
+                        forceJump *= ((veloX / force));
+                    }
+
+                   
+                    rd.velocity = new Vector3(veloX, direction.y * forceJumpBase + forceJump);
+
                 }
                 else
                 {
-                    forceJump *= ((veloX / force));
+                    if (wallDirection != 0 && !wallJump && !canJump)
+                    {
+                        WallJump(rd, force, forceJump);
+                    }
+                    else if (!wallJump)
+                    {
+                        rd.velocity = new Vector3(veloX, rd.velocity.y);
+                    }
                 }
-
-                Debug.Log("yo");
-                rd.velocity = new Vector3(veloX, direction.y * forceJumpBase + forceJump);
-
             }
-            else
+
+            if (direction.y < 1 && direction.x != 0 && !wallJump)
             {
-                if (wallDirection != 0 && !wallJump && !canJump)
+
+                if (veloX < force && veloX > -force)
                 {
-                    WallJump(rd, force, forceJump);
+                    vitesseDeplacement *= (1 - (veloX / (force * direction.x)));
+                    veloX += (Time.deltaTime * (vitesseDeplacement) * direction.x);
+                    ChangeVeloxWalled();
+                    rd.velocity = new Vector3(veloX, rd.velocity.y);
                 }
-                else if (!wallJump)
+                else
                 {
+                    ChangeVeloxWalled();
                     rd.velocity = new Vector3(veloX, rd.velocity.y);
                 }
             }
-        }
 
-        if (direction.y < 1 && direction.x !=0 && !wallJump)
-        {
-            
-            if (veloX < force && veloX > -force)
-            {
-                vitesseDeplacement *= (1 - (veloX / (force*direction.x)));
-                veloX += (Time.deltaTime * (vitesseDeplacement)*direction.x);
-                ChangeVeloxWalled();
-                rd.velocity = new Vector3(veloX, rd.velocity.y);
-            }
-            else
-            {
-                ChangeVeloxWalled();
-                rd.velocity = new Vector3(veloX, rd.velocity.y);
-            }
-        }
-       
 
-        if(direction.x == 0 && veloX !=0 && !wallJump)
-        {
-            if(veloX >0)
+            if (direction.x == 0 && veloX != 0 && !wallJump)
             {
-                veloX -= (Time.deltaTime * vitessePerteVitesse);
-                if (veloX < 0)
-                {
-                    veloX = 0;
-                }
-            }
-            else
-            {
-                veloX += (Time.deltaTime * vitessePerteVitesse);
                 if (veloX > 0)
                 {
-                    veloX = 0;
+                    veloX -= (Time.deltaTime * vitessePerteVitesse);
+                    if (veloX < 0)
+                    {
+                        veloX = 0;
+                    }
                 }
+                else
+                {
+                    veloX += (Time.deltaTime * vitessePerteVitesse);
+                    if (veloX > 0)
+                    {
+                        veloX = 0;
+                    }
+                }
+                rd.velocity = new Vector3(veloX, rd.velocity.y);
             }
-            rd.velocity = new Vector3(veloX, rd.velocity.y);
-        }
 
-        if(rd.velocity.y <0 && rd.velocity.y > -((forceJump / 3)*2))
-        {
-           
-            rd.velocity = new Vector3(veloX, rd.velocity.y *1.2f);
+            if (rd.velocity.y < 0 && rd.velocity.y > -((forceJump / 3) * 2))
+            {
+
+                rd.velocity = new Vector3(veloX, rd.velocity.y * 1.2f);
+            }
         }
 
     }
