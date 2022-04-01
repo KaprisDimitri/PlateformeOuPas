@@ -88,12 +88,12 @@ public class PlateformeController : MonoBehaviour,IActivable,IDiferenteWorld
     bool destroyed;
 
 
-
+    float saveY;
     // Start is called before the first frame update
     void Start()
     {
-        
-        
+
+        saveY = gameObject.transform.position.y;
         InitPlateformeController();
     }
 
@@ -269,6 +269,8 @@ public class PlateformeController : MonoBehaviour,IActivable,IDiferenteWorld
 
     private void OnTriggerEnter(Collider other)
     {
+       
+
         if (active)
         {
             if (enfant)
@@ -294,7 +296,11 @@ public class PlateformeController : MonoBehaviour,IActivable,IDiferenteWorld
             {
                 //ActionSurPlatefome();
             }
+
+           
         }
+
+        
 
 
     }
@@ -321,6 +327,8 @@ public class PlateformeController : MonoBehaviour,IActivable,IDiferenteWorld
                 }
             }
         }
+
+      
     }
 
     

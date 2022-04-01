@@ -31,14 +31,14 @@ public class PicsController : MonoBehaviour , IDiferenteWorld
     {
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(pointOuJump + (Vector2)transform.position, diametreOverLaJumpp);
+        Gizmos.DrawWireSphere((Vector3)pointOuJump + transform.position, diametreOverLaJumpp);
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(pointOuRepouce + (Vector2)transform.position, diametreOverLaReponce);
+        Gizmos.DrawWireSphere((Vector3)pointOuRepouce + transform.position, diametreOverLaReponce);
     }
 
     Rigidbody CheckIfPlayerOverLaJumpp(LayerMask layerplayer, Vector2 center, float diametreOverlap)
     {
-        Collider[] col = Physics.OverlapSphere(center + (Vector2)transform.position, diametreOverlap, layerplayer);
+        Collider[] col = Physics.OverlapSphere((Vector3)center + transform.position, diametreOverlap, layerplayer);
         if (col.Length > 0)
         {
             return col[0].gameObject.GetComponent<Rigidbody>();
@@ -52,7 +52,7 @@ public class PicsController : MonoBehaviour , IDiferenteWorld
     //WorkInProgresse
     GameObject CheckIfPlayerOverLaReponce(LayerMask layerplayer, Vector2 center, float diametreOverLaReponce)
     {
-        Collider[] col = Physics.OverlapSphere(center + (Vector2)transform.position, diametreOverLaReponce, layerplayer);
+        Collider[] col = Physics.OverlapSphere((Vector3)center + transform.position, diametreOverLaReponce, layerplayer);
         if (col.Length > 0)
         {
             return col[0].gameObject;
