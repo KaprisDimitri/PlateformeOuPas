@@ -11,6 +11,7 @@ public class PlayerControllerDim : MonoBehaviour
     [SerializeField] float vitesse;
     [SerializeField] float vitesseMax;
     [SerializeField] float vitesseJump;
+    [SerializeField] float forceJump;
     [SerializeField] float perteVitesse;
 
     [SerializeField] KeyCode jump;
@@ -32,7 +33,7 @@ public class PlayerControllerDim : MonoBehaviour
     void Start()
     {
         playerInput.InitPlayerInputDim(jump, left, right);
-        playerMovement.InitPlayerMovement(firstPositionForRayCast, SecondPositionForRayCast, layerGround, rightSide,leftSide, timeToReachWallJump, forceJumpWallY, forceJumpWallX);
+        playerMovement.InitPlayerMovement(firstPositionForRayCast, SecondPositionForRayCast, layerGround, rightSide,leftSide, timeToReachWallJump, forceJumpWallY, forceJumpWallX, forceJump);
     }
 
     // Update is called once per frame

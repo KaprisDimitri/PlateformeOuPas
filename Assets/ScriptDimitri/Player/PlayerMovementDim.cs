@@ -34,6 +34,8 @@ public class PlayerMovementDim : MonoBehaviour
      float forceJumpWallX;
 
     public bool canMove;
+
+    float forceJumpBase;
     // Start is called before the first frame update
     void Start()
     {
@@ -75,7 +77,7 @@ public class PlayerMovementDim : MonoBehaviour
         
     }
 
-    public void InitPlayerMovement (Transform firstPositionForRayCast, Transform SecondPositionForRayCast, LayerMask layerGround, Transform rightSide, Transform leftSide,float timeToReachWallJump,float forceJumpWallY, float forceJumpWallX)
+    public void InitPlayerMovement (Transform firstPositionForRayCast, Transform SecondPositionForRayCast, LayerMask layerGround, Transform rightSide, Transform leftSide,float timeToReachWallJump,float forceJumpWallY, float forceJumpWallX,  float forceJumpBase)
     {
         this.firstPositionForRayCast = firstPositionForRayCast;
         this.SecondPositionForRayCast = SecondPositionForRayCast;
@@ -85,6 +87,7 @@ public class PlayerMovementDim : MonoBehaviour
         this.timeToReachWallJump = timeToReachWallJump;
         this.forceJumpWallX = forceJumpWallX;
         this.forceJumpWallY = forceJumpWallY;
+        this.forceJumpBase = forceJumpBase;
     }
 
     public void MovePlayer(Rigidbody rd, Vector2 direction, float force, float vitesseDeplacement, float forceJump, float vitessePerteVitesse)
@@ -97,7 +100,7 @@ public class PlayerMovementDim : MonoBehaviour
                 {
                     jump = true;
                     canJump = false;
-                    float forceJumpBase = 10f;
+                    float forceJumpBase = this.forceJumpBase;
                     if (veloX < 0)
                     {
                         forceJump *= ((veloX / force * -1));
@@ -166,7 +169,7 @@ public class PlayerMovementDim : MonoBehaviour
             if (rd.velocity.y < 0 && rd.velocity.y > -((forceJump / 3) * 2))
             {
 
-                rd.velocity = new Vector3(veloX, rd.velocity.y * 1.2f);
+                rd.velocity = new Vector3(veloX, rd.velocity.y * 4f);
             }
         }
 
