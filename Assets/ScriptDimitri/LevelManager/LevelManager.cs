@@ -200,9 +200,9 @@ public class LevelManager : MonoBehaviour
                 if (!cantswipe)
                 {
                     couleurInt -= (Time.deltaTime / vistesseChangement)*100;
-                    if (couleurInt <= -100)
+                    if (couleurInt <= -50)
                     {
-                        couleurInt = -100;
+                        couleurInt = -50;
 
                         if (CheckIfCanSwipe())
                         {
@@ -256,9 +256,9 @@ public class LevelManager : MonoBehaviour
                 else
                 {
                     couleurInt -= ((Time.deltaTime / vistesseChangement)*100)*2;
-                    if (couleurInt <= -100)
+                    if (couleurInt <= -50)
                     {
-                        couleurInt = -100;
+                        couleurInt = -50;
                         swipe = false;
                         cantswipe = false;
                     }
