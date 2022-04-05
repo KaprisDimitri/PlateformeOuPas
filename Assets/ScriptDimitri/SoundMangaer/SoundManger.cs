@@ -12,6 +12,10 @@ public class SoundManger : MonoBehaviour
 
     public delegate void PlayerSound(int i, Vector3 pos);
     public static PlayerSound playSound;
+    private void Awake()
+    {
+        Debug.Log("SoundManagerCeReveille");
+    }
     // Start is called before the first frame update
     void Start()
     {

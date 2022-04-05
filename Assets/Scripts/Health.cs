@@ -29,6 +29,7 @@ public class Health : MonoBehaviour
         if(active)
         {
             health += vie;
+            
             SoundManger.playSound(19, transform.position);
         }
         else
