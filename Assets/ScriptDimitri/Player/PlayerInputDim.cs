@@ -22,24 +22,24 @@ public class PlayerInputDim : MonoBehaviour
 
     public void InitPlayerInputDim (KeyCode jump, KeyCode left, KeyCode right)
     {
-        this.jump = jump;
-        this.left = left;
-        this.right = right;
+        this.jump = InpuManager.jump;
+        this.left = InpuManager.left;
+        this.right = InpuManager.right;
         
     }
 
     public Vector2 DirectionPlayer ()
     {
         Vector2 direction = Vector2.zero;
-        if(Input.GetKeyDown(jump))
+        if(Input.GetKeyDown(InpuManager.jump))
         {
             direction += Vector2.up;
         }
-        if (Input.GetKey(left))
+        if (Input.GetKey(InpuManager.left))
         {
             direction += Vector2.left;
         }
-        if (Input.GetKey(right))
+        if (Input.GetKey(InpuManager.right))
         {
             direction += Vector2.right;
         }

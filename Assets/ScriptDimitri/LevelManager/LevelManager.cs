@@ -26,6 +26,8 @@ public class LevelManager : MonoBehaviour
     bool swipe;
     bool cantswipe;
 
+    bool pause;
+
     private void Awake()
     {
         InitLevel();
@@ -42,10 +44,31 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && !swipe)
+        if (!pause)
         {
-            swipe = true;
-            
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(InpuManager.CahngeWorld)) && !swipe)
+            {
+                swipe = true;
+                if (CheckIfCanSwipe())
+                {
+                    SoundManger.playSound(Random.Range(16, 17), transform.position);
+                }
+
+            }
+
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                pause = true;
+                player.GetComponent<PlayerMovementDim>().canMove = false;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pause = false;
+                player.GetComponent<PlayerMovementDim>().canMove = true;
+            }
         }
 
         if(swipe)

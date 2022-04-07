@@ -103,10 +103,12 @@ public class PlayerMovementDim : MonoBehaviour
                     float forceJumpBase = this.forceJumpBase;
                     if (veloX < 0)
                     {
+                        SoundManger.playSound(Random.Range(10,13), transform.position);
                         forceJump *= ((veloX / force * -1));
                     }
                     else
                     {
+                        SoundManger.playSound(Random.Range(10, 13), transform.position);
                         forceJump *= ((veloX / force));
                     }
 
@@ -118,6 +120,7 @@ public class PlayerMovementDim : MonoBehaviour
                 {
                     if (wallDirection != 0 && !wallJump && !canJump)
                     {
+                        SoundManger.playSound(Random.Range(10, 13), transform.position);
                         WallJump(rd, force, forceJump);
                     }
                     else if (!wallJump)
@@ -186,6 +189,10 @@ public class PlayerMovementDim : MonoBehaviour
             jump = false;
             t2 = 0;
             u =0;
+            if(!grounded)
+            {
+                SoundManger.playSound(Random.Range(14, 15), transform.position);
+            }
             return true;
         }
        else

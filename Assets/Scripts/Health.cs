@@ -29,12 +29,15 @@ public class Health : MonoBehaviour
         if(active)
         {
             health += vie;
+            
+            SoundManger.playSound(19, transform.position);
         }
         else
         {
             StopCoroutine(CoroutineConMove());
             playerMovement.canMove = false;
             health -= vie;
+            SoundManger.playSound(18, transform.position);
             StartCoroutine(CoroutineConMove());
         }
         if (health > numberOfHearths)

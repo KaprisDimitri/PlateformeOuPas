@@ -5,8 +5,9 @@ using UnityEngine;
 public class CheckPointController : MonoBehaviour
 {
     public bool check;
-    [SerializeField] MeshRenderer mesh;
-    [SerializeField] Material materialCheck;
+    [SerializeField] GameObject basegam;
+    [SerializeField] GameObject newGam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +28,9 @@ public class CheckPointController : MonoBehaviour
             {
                
                 check = true;
-                mesh.material = materialCheck;
+                SoundManger.playSound(20, transform.position);
+                Instantiate(newGam, basegam.transform.position, Quaternion.identity, gameObject.transform);
+                Destroy(basegam);
             }
         }
     }
