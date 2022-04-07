@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5080293531129842280}
   - component: {fileID: 8155754602339927501}
   - component: {fileID: 6254366081409511687}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: "ground cot\xE9 bleu"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
