@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534d71cd11005de4dbfed0aa6ba51d63, type: 3}
   m_Name: Level1 Collectable
   m_EditorClassIdentifier: 
+  collecter: 0000
