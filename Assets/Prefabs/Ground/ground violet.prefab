@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4193765506330841446}
   - component: {fileID: 980909608076697283}
   - component: {fileID: 3060217243397597705}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ground violet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

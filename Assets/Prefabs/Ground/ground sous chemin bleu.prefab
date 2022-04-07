@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2474646757366799611}
   - component: {fileID: 1583135700229067614}
   - component: {fileID: 3610931159148816276}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ground sous chemin bleu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
