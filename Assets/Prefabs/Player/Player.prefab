@@ -516,6 +516,7 @@ MonoBehaviour:
   vitesse: 20
   vitesseMax: 8
   vitesseJump: 0.2
+  forceJump: 0
   perteVitesse: 20
   jump: 32
   left: 113
