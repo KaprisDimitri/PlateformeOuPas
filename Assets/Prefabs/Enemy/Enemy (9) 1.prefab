@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea97e85ff59ece847a8851d9c9a03468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewGameObject: {fileID: 0}
+  animatorGameobject: {fileID: 4759589346159273410}
   enemyMovement: {fileID: 1926123155358313936}
   enemyAction: {fileID: 1926123155358313937}
   vitesseDeDeplacement: 1
@@ -151,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361c72323ed9cfa4dbc7174888f67fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  directionDeDepart: {x: 0, y: 0}
 --- !u!114 &1926123155358313937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,5 +420,10 @@ PrefabInstance:
 --- !u!4 &4364771875139470960 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7017437865000574701, guid: 35fea9bb1f0ca9a478c650c6bc4d20d9, type: 3}
+  m_PrefabInstance: {fileID: 6768974475467806877}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4759589346159273410 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2305085587461209439, guid: 35fea9bb1f0ca9a478c650c6bc4d20d9, type: 3}
   m_PrefabInstance: {fileID: 6768974475467806877}
   m_PrefabAsset: {fileID: 0}

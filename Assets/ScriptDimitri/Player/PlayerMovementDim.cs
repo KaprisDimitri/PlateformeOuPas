@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovementDim : MonoBehaviour
 {
+    [SerializeField] GameObject ViewPlayer;
     Transform firstPositionForRayCast;
     Transform SecondPositionForRayCast;
 
@@ -92,14 +93,32 @@ public class PlayerMovementDim : MonoBehaviour
         this.forceJumpBase = forceJumpBase;
     }
 
+    void ChangeWayLook (Vector2 direction)
+    {
+        if (direction.x == -1)
+        {
+            Debug.Log("Yo c est 180");
+            ViewPlayer.transform.rotation = new Quaternion (0, 180, 0, 0);
+        }
+        else if (direction.x == 1)
+        {
+            Debug.Log("Yo c est 0");
+            ViewPlayer.transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
+       
+    }
+
     public void MovePlayer(Rigidbody rd, Vector2 direction, float force, float vitesseDeplacement, float forceJump, float vitessePerteVitesse)
     {
+
         if (canMove)
         {
+            ChangeWayLook(direction);
             if (direction.y == 1)
             {
                 if ((grounded || canJump) && !wallJump)
                 {
+                    
                     jump = true;
                     canJump = false;
                     float forceJumpBase = this.forceJumpBase;
@@ -107,17 +126,18 @@ public class PlayerMovementDim : MonoBehaviour
                     {
                         SoundManger.playSound(Random.Range(10, 13), transform.position);
                         forceJump *= ((veloX / force * -1));
-                        animator.SetTrigger("jump");
+                       
                     }
                     else
                     {
                         SoundManger.playSound(Random.Range(10, 13), transform.position);
                         forceJump *= ((veloX / force));
-                        animator.SetTrigger("jump");
+                        
                     }
 
 
                     rd.velocity = new Vector3(veloX, direction.y * forceJumpBase + forceJump);
+                    animator.SetBool("jump", true);
 
                 }
                 else
@@ -126,7 +146,8 @@ public class PlayerMovementDim : MonoBehaviour
                     {
                         SoundManger.playSound(Random.Range(10, 13), transform.position);
                         WallJump(rd, force, forceJump);
-                        animator.SetTrigger("wall");
+                        animator.SetBool("wall", true);
+                       
                     }
                     else if (!wallJump)
                     {
@@ -153,6 +174,11 @@ public class PlayerMovementDim : MonoBehaviour
                 }
             }
 
+            if(direction.x ==0)
+            {
+                animator.SetBool("course", false);
+            }
+
 
             if (direction.x == 0 && veloX != 0 && !wallJump)
             {
@@ -173,11 +199,24 @@ public class PlayerMovementDim : MonoBehaviour
                     }
                 }
                 rd.velocity = new Vector3(veloX, rd.velocity.y);
+                
+            }
+            if(rd.velocity.y < 0)
+            {
+                animator.SetBool("jump", false);
+                if (!grounded)
+                {
+                    animator.SetBool("fall", true);
+                }
+                else
+                {
+                    animator.SetBool("fall", false);
+                }
             }
 
-            if (rd.velocity.y < 0 && rd.velocity.y > -((forceJump / 3) * 2))
+                if (rd.velocity.y < 0 && rd.velocity.y > -((forceJump / 3) * 2))
             {
-
+                
                 rd.velocity = new Vector3(veloX, rd.velocity.y * 4f);
             }
         }
@@ -199,6 +238,7 @@ public class PlayerMovementDim : MonoBehaviour
             {
                 SoundManger.playSound(Random.Range(14, 15), transform.position);
             }
+            animator.SetBool("fall", false);
             return true;
         }
         else
@@ -320,6 +360,7 @@ public class PlayerMovementDim : MonoBehaviour
         else
         {
             timeWallJump = 0;
+            animator.SetBool("wall", false);
             wallJump = false;
         }
     }
