@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControllerDim : MonoBehaviour
 {
+    Animator animator;
     [SerializeField] PlayerInputDim playerInput;
     [SerializeField] PlayerMovementDim playerMovement;
 
@@ -30,22 +31,25 @@ public class PlayerControllerDim : MonoBehaviour
 
     public Vector2 directionPlayer;
     // Start is called before the first frame update
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Start()
     {
         playerInput.InitPlayerInputDim(jump, left, right);
-        playerMovement.InitPlayerMovement(firstPositionForRayCast, SecondPositionForRayCast, layerGround, rightSide,leftSide, timeToReachWallJump, forceJumpWallY, forceJumpWallX, forceJump);
+        playerMovement.InitPlayerMovement(firstPositionForRayCast, SecondPositionForRayCast, layerGround, rightSide, leftSide, timeToReachWallJump, forceJumpWallY, forceJumpWallX, forceJump);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        directionPlayer = playerInput.DirectionPlayer();
-        playerMovement.MovePlayer(rigidBody, directionPlayer, vitesseMax, vitesse, vitesseJump, perteVitesse);
+        Movement();
     }
 
-    private void FixedUpdate()
+    private void Movement()
     {
-        
+        directionPlayer = playerInput.DirectionPlayer();
+        playerMovement.MovePlayer(rigidBody, directionPlayer, vitesseMax, vitesse, vitesseJump, perteVitesse);
     }
 }
