@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea97e85ff59ece847a8851d9c9a03468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewGameObject: {fileID: 8641176400095559823}
   enemyMovement: {fileID: 8641176399794712850}
   enemyAction: {fileID: 8641176399794712851}
   vitesseDeDeplacement: 1

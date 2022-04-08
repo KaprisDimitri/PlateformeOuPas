@@ -30,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
     //Move pour Collision
     bool collisionActive;
     int layerPourDemiTour;
-    Vector2 directionDeDepart;
+    public Vector2 directionDeDepart;
 
    
 

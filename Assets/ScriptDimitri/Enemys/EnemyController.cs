@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour , IDiferenteWorld
 {
+    [SerializeField] GameObject viewGameObject;
+
     [Header("Script A affilier")]
     [SerializeField] EnemyMovement enemyMovement;
     [SerializeField] EnemyAction enemyAction;
@@ -71,7 +73,7 @@ public class EnemyController : MonoBehaviour , IDiferenteWorld
     // Update is called once per frame
     void Update()
     {
-
+       // ChangeWayToLook();
     }
 
     private void FixedUpdate()
@@ -200,6 +202,23 @@ public class EnemyController : MonoBehaviour , IDiferenteWorld
         if (gameObject.transform.childCount != 0)
         {
           //  gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
+
+    void ChangeWayToLook ()
+    {
+        for(int i =0; i < viewGameObject.transform.childCount;i++)
+        {
+            if (enemyMovement.directionDeDepart.x > 0)
+            {
+                Debug.Log(enemyMovement.directionDeDepart.x);
+                viewGameObject.transform.GetChild(i).transform.rotation = (new Quaternion(0, 180, 0,0));
+            }
+            else if (enemyMovement.directionDeDepart.x < 0)
+            {
+                Debug.Log(enemyMovement.directionDeDepart.x);
+                viewGameObject.transform.GetChild(i).transform.rotation = (new Quaternion(0, 0, 0, 0));
+            }
         }
     }
 }
